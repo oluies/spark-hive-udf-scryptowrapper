@@ -1,4 +1,4 @@
-# Sample Hive UDF project
+# Scrypt as Hive User Defined Functions (UDFs), for use in Apache Spark
 
 based on https://github.com/bmc/spark-hive-udf
 
