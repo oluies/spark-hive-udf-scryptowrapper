@@ -79,3 +79,5 @@ Because, resons
 [Hive User Defined Functions]: https://cwiki.apache.org/confluence/display/Hive/LanguageManual+UDF
 [Apache Spark]: http://spark.apache.org
 [SBT]: http://scala-sbt.org
+
+
