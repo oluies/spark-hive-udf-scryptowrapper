@@ -1,11 +1,12 @@
 # Sample Hive UDF project
 
+based on https://github.com/bmc/spark-hive-udf
+
 ## Introduction
 
-This project is just an example, containing several
+This project wraps several [Scrypt](https://github.com/input-output-hk/scrypto) as 
 [Hive User Defined Functions][] (UDFs), for use in Apache Spark. It's
-intended to demonstrate how to build a Hive UDF in Scala or Java and use it
-within [Apache Spark][].
+intended to be used in  Hive UDF in Scala or Java within [Apache Spark][].
 
 ## Why use a Hive UDF?
 
@@ -27,23 +28,11 @@ You can't call it as a function from the DataFrame API.
 
 ## Building
 
-This project builds with [SBT][], but you don't have to download SBT. Just use
-the `activator` script in the root directory. To build the jar file, use
-this command:
-
-```
-$ ./activator jar
-```
+This project builds with [SBT][] assembly
 
 That command will download the dependencies (if they haven't already been
 downloaded), compile the code, run the unit tests, and create a jar file
-in `target/scala-2.10`.
-
-### Building with Maven
-
-Honestly, I'm not a big fan of Maven. I had a Maven `pom.xml` file here, but
-I got tired of maintaining an annoying XML Maven build file, when I'm already
-maintaining an SBT build file.  Just use `activator`, as described above.
+in `target/scala-2.11`.
 
 ## Running in Spark
 
@@ -57,55 +46,35 @@ You can also use Hive UDFs from Scala, by the way.
 First, fire up PySpark:
 
 ```
-$ pyspark --jars target/scala-2.10/hiveudf_2.10-0.0.1.jar
+$ pyspark --jars target/scala-2.11/spark-hive-udf-blake2-assembly-0.0.1.jar
 ```
 
 At the PySpark prompt, enter the following. (If you're using IPython,
 `%paste` works best.)
 
 ```
-from datetime import datetime
-from collections import namedtuple
-from decimal import Decimal
+sqlContext.sql("CREATE TEMPORARY FUNCTION scorex_blake2b256 AS 'com.combient.spark.hiveudf.scorex.Blake2b256'")
 
-Person = namedtuple('Person', ('first_name', 'last_name', 'birth_date', 'salary', 'children'))
-
-fmt = "%Y-%m-%d"
-
-people = [
-    Person('Joe', 'Smith', datetime.strptime("1993-10-20", fmt), 70000.0, 2l),
-    Person('Jenny', 'Harmon', datetime.strptime("1987-08-02", fmt), 94000.0, 1l)
-]
-
-df = sc.parallelize(people).toDF()
-
-sqlContext.sql("CREATE TEMPORARY FUNCTION to_hex AS 'com.combient.spark.hiveudf.ToHex'")
-sqlContext.sql("CREATE TEMPORARY FUNCTION datestring AS 'com.combient.spark.hiveudf.FormatTimestamp'")
-sqlContext.sql("CREATE TEMPORARY FUNCTION currency AS 'com.ardentex.spark.hiveudf.FormatCurrency'")
-
-df.registerTempTable("people")
-df2 = sqlContext.sql("SELECT first_name, last_name, datestring(birth_date, 'MMMM dd, yyyy') as birth_date2, currency(salary, 'en_US') as pr_salary, to_hex(children) as hex_children FROM people")
+df2 = sqlContext.sql("SELECT scorex_blake2b256('sdfadf')")
 ```
 
 Then, take a look at the second DataFrame:
 
 ```
-df2.show()
+df2.show(1,False)
++----------------------------------------------------------------+
+|scorex_blake2b256(sdfadf)                                       |
++----------------------------------------------------------------+
+|A1E2ECF3183C97368C9B4D0764522B9D31D92C13BB03BC2AC56854F1E9FEC0E8|
++----------------------------------------------------------------+
 
-+----------+---------+----------------+----------+------------+
-|first_name|last_name|     birth_date2| pr_salary|hex_children|
-+----------+---------+----------------+----------+------------+
-|       Joe|    Smith|October 20, 1993|$70,000.00|         0x2|
-|     Jenny|   Harmon| August 02, 1987|$94,000.00|         0x1|
-+----------+---------+----------------+----------+------------+
 ```
 
 ## "Why did you write these things in Scala?"
 
-Because, after writing Scala for the last 7 years, I find Java annoying. But,
-I did include a Java UDF in this repo; take a look at the `FormatCurrency` UDF. 
-The others are in Scala and, really, they're not hard to translate
-to Java.
+Because, resons
+
+## "Reference"
 
 [Hive User Defined Functions]: https://cwiki.apache.org/confluence/display/Hive/LanguageManual+UDF
 [Apache Spark]: http://spark.apache.org
