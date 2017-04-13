@@ -74,7 +74,7 @@ df2.show(1,False)
 
 Because, resons
 
-## "Reference"
+## Reference
 
 [Hive User Defined Functions]: https://cwiki.apache.org/confluence/display/Hive/LanguageManual+UDF
 [Apache Spark]: http://spark.apache.org
