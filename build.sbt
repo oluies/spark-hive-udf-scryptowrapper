@@ -9,7 +9,7 @@ scalacOptions ++= Seq("-unchecked", "-feature", "-deprecation")
 libraryDependencies ++= Seq(
   "org.apache.hive" % "hive-exec" % "1.2.1" % "provided",
   "org.apache.hadoop" % "hadoop-core" % "1.2.1" % "provided",
-  "org.scalatest" %% "scalatest" % "2.2.4" % "test",
+  "org.scalatest" %% "scalatest" % "2.2.6" % "test",
   "org.consensusresearch" %% "scrypto" % "1.1.0"
 )
 
