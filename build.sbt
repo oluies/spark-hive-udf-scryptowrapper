@@ -7,7 +7,7 @@ scalacOptions ++= Seq("-unchecked", "-feature", "-deprecation")
 // https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on
 
 libraryDependencies ++= Seq(
-  "org.apache.hive" % "hive-exec" % "1.2.1" % "provided",
+  "org.apache.hive" % "hive-exec" % "1.2.2" % "provided",
   "org.apache.hadoop" % "hadoop-core" % "1.2.1" % "provided",
   "org.scalatest" %% "scalatest" % "2.2.4" % "test",
   "org.consensusresearch" %% "scrypto" % "1.1.0"
