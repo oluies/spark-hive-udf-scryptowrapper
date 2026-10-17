@@ -2,7 +2,7 @@ name := """spark-hive-udf-scryptowrapper"""
 version := "0.0.1"
 organization := "com.combient"
 
-scalaVersion := "2.11.8"
+scalaVersion := "2.11.12"
 scalacOptions ++= Seq("-unchecked", "-feature", "-deprecation")
 // https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on
 
