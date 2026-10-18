@@ -1,6 +1,29 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ]
+  "description": [
+    "Renovate is disabled here deliberately. This repository was last developed on",
+    "2017-04-13 and is kept for reference, not maintained.",
+    "",
+    "Nothing in the build can move. hive-exec 1.2.1 and hadoop-core 1.2.1 are the",
+    "Hadoop 1.x / Hive 1.2 line, scrypto 1.1.0 is from the same era, and one of the",
+    "resolvers is http://conjars.org/repo -- plain HTTP, and conjars no longer",
+    "serves. There is no CI, so nothing would catch a bump that breaks the build.",
+    "",
+    "What Renovate proposed in six PRs, and why each was refused:",
+    "  #2 hive-exec  1.2.1 -> 1.2.2     last release of a dead line; no reason to take it",
+    "  #7 hive-exec  1.2.1 -> 4.x       eight years of breaking change, on no tests",
+    "  #3 scalatest  2.2.4 -> 2.2.6     test-only, on a build that cannot resolve",
+    "  #8 scalatest  2.2.4 -> 3.x       different API; every test would need rewriting",
+    "  #5 scala      2.11.8 -> 2.11.12  harmless and pointless",
+    "  #6 scala      2.11.8 -> 2.13.18  impossible: hive-exec 1.2.1 and scrypto 1.1.0",
+    "                                   have no 2.13 artifacts, and #5 contradicts it",
+    "",
+    "#5 and #6 being open at once is the clearest sign this is not a repository",
+    "Renovate can reason about: it offered two mutually exclusive Scala lines. It",
+    "then offered both the minor and the major for hive-exec and for scalatest.",
+    "",
+    "If this is ever revived, the move is a fresh build definition on a current",
+    "Scala and Spark, not a chain of bumps from here. Delete this file then."
+  ],
+  "enabled": false
 }
